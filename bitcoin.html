@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="bitcoin.js"></script>
+<body>
+
+<div ng-app="bitcoin" ng-controller="bitcoinController as vm">
+
+
+Investment in USD : <input type="number" ng-model="vm.investment">
+<br>
+Price of 1 TH / s in USD: <input type="number" ng-model="vm.priceOfTHS">
+<br>
+Price of fee for 1 TH / s for 24h in USD: <input type="number" ng-model="vm.priceOfFeeForTHSPerDay">
+<br>
+Price of 1 BTC <input type="number" ng-model="vm.priceOfBTC">
+<br>
+Maximum TH / s <input type="number" ng-model="vm.maximumTHS">
+<br>
+Length of contract in days <input type="number" ng-model="vm.lengthOfContractInDays">
+<br>
+Initial TH/s power: {{vm.getInitialTHSPower()}}
+<br>
+BTC / 1 day / 1 TH/s with start difficulty: <input type="number" ng-model="vm.BTCperDayWithOneTHSWithStartDifficulty"> 
+<br>
+Days between the difficulty change: <input type="number" ng-model="vm.daysBetweenDifficultyChange">
+<br>
+Difficulty factor <input type="number" ng-model="vm.difficultyFactor">
+<br>
+Expected BTC price in USD in the future <input type="number" ng-model="vm.expectedPriceOfBTCInTheFuture">
+<br>
+<button ng-click="vm.recalculate()">Calculate again</button>
+
+<h2>
+Maximum BTC : {{vm.getMiningableBTC.BTCWithThisPowerForTheRestOfTheYear}}
+<br>
+Day until reinvest: {{vm.getMiningableBTC.numberOfDay}}
+<br>
+Maximum daily power: {{vm.getMiningableBTC.dailyPower}}
+<br>
+Value of owned BTC in the future with future BTC price:  {{vm.expectedValueOfOwnBTC}}
+</h2>
+
+
+<br>
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+<table>
+	<tr>
+		<th>Miningable BTC</th>
+		<th>numberOfDay</th>
+		<th>dailyFee</th>
+		<th>dailyPower</th>
+		<th>dailyBTC</th>
+	</tr>
+	<tr ng-repeat="day in vm.calculatedBitcoinResults">
+		<td>{{day.BTCWithThisPowerForTheRestOfTheYear}}</td>
+		<td>{{day.numberOfDay}}</td>
+		<td>{{day.dailyFee}}</td>
+		<td>{{day.dailyPower}}</td>
+		<td>{{day.dailyBTC}}</td>
+	</tr>
+</table>
+
+</div>
+
+</body>
+</html>
